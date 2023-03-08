@@ -174,15 +174,10 @@ export default {
   background-color: transparent;
   border: none;
 }
-.jokes-container {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  flex-wrap: wrap;
-  gap: 5px;
-}
+
 .single-part-joke,
 .two-part-joke {
-  background-color: #e6d6da9a;
+  background-color: #8f888a9a;
   padding: 20px;
   font-size: 1rem;
   color: #311f22;

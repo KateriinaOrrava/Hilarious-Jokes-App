@@ -142,11 +142,12 @@ export default {
     <div class="jokes-container">
       <div v-for="item in listItems" class="single-part-joke">
         <button
+        class="add-joke-to-favorites"
           v-on:click="
             addOnePartJokeToFavorites(item.joke, item.category, item.id)
           "
         >
-          <a>☆</a>
+          🤍
         </button>
         <p>{{ item.joke }}</p>
       </div>
@@ -156,6 +157,12 @@ export default {
 </template>
 
 <style>
+.jokes-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+}
 .joke-categories {
   display: flex;
   justify-content: center;
@@ -163,12 +170,6 @@ export default {
 }
 .active {
   background-color: red;
-}
-.jokes-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  flex-wrap: wrap;
-  gap: 10px;
 }
 
 @media (min-width: 1024px) {
@@ -241,10 +242,15 @@ export default {
   margin: 0px 20px;
   transition: height 0.7s ease;
 }
-.single-part-joke:hover,
-.two-part-joke:hover {
-  background-color: rgb(230, 214, 218);  padding: 20px;
-  font-size: 1rem;
+.single-part-joke{
+display:flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+}
+.single-part-joke:hover{
+  background-color: rgb(230, 214, 218);
+  padding: 20px;
   color: #311f22;
   border-radius: 10px;
   min-width: 20%;

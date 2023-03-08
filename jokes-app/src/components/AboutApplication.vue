@@ -1,6 +1,6 @@
 <template>
   <div class="item">
-    <p>
+    <p class="paragraph-about-application">
       The application is a joke application that retrieves jokes from
       https://sv443.net/jokeapi/v2/ using Vue 3 options API, Vue Router,
       TypeScript, CSS, and HTML. <br /><br />The application is designed to
@@ -34,3 +34,18 @@
     </p>
   </div>
 </template>
+<style scoped>
+.paragraph-about-application {
+  margin-top: 30px;
+  font-size: 2em;
+  background-color: #e6d6daad;
+  padding: 20px;
+  font-size: 1rem;
+  color: #181113;
+  border-radius: 10px;
+  min-width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>

@@ -21,17 +21,13 @@ import HelloWorld from './components/HelloWorld.vue';
 </template>
 
 <style scoped>
-.jokes-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-}
+
 .single-part-joke,
 .two-part-joke {
-  background-color: #e6d6da;
+  background-color: #3936374f;
   padding: 20px;
-  font-size: 1rem;
-  color: #311f22;
+  font-size: 1.5rem;
+  color: #0c0809;
   border-radius: 10px;
   min-width: 20%;
   display: flex;
