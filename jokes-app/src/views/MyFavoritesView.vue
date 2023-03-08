@@ -4,8 +4,5 @@ console.log('❤️ jokes');
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
-  </main>
   <h1>my favorite jokes</h1>
 </template>
