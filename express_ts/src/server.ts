@@ -1,34 +1,34 @@
-import express from 'express';
-import { Request, Response } from 'express';
-import bodyparser from 'body-parser';
-import JokeOnePart from './OnePartJokeSchema';
-import JokeTwoPart from './TwoPartJoke.Schema';
+import express from "express";
+import { Request, Response } from "express";
+import bodyparser from "body-parser";
+import JokeOnePart from "./OnePartJokeSchema";
+import JokeTwoPart from "./TwoPartJoke.Schema";
 //Cross-Origin Resource Sharing
-import cors from 'cors';
+import cors from "cors";
 
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const app = express();
 
 app.use(bodyparser.json());
-app.use(cors({ origin: '*' }));
+app.use(cors({ origin: "*" }));
 
-mongoose.set('strictQuery', false);
+mongoose.set("strictQuery", false);
 
-mongoose.connect('mongodb://127.0.0.1:27017/jokeCatalog');
+mongoose.connect("mongodb://127.0.0.1:27017/jokeCatalog");
 
 const db = mongoose.connection;
 // db.createCollection("TwoPartJokes");
 // db.createCollection("OnePartJokes");
 
-db.on('error', (error) => console.log(error));
-db.once('open', () => console.log('Connected to DB'));
+db.on("error", (error) => console.log(error));
+db.once("open", () => console.log("Connected to DB"));
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Application works!');
+app.get("/", (req: Request, res: Response) => {
+  res.send("Application works!");
 });
 
-app.get('/onePartJokes', async (req: Request, res: Response) => {
+app.get("/onePartJokes", async (req: Request, res: Response) => {
   try {
     const filter = {};
     const all = await JokeOnePart.find(filter);
@@ -37,7 +37,7 @@ app.get('/onePartJokes', async (req: Request, res: Response) => {
     throw error;
   }
 });
-app.get('/twoPartJokes', async (req: Request, res: Response) => {
+app.get("/twoPartJokes", async (req: Request, res: Response) => {
   try {
     const filter = {};
     const all = await JokeTwoPart.find(filter);
@@ -66,7 +66,6 @@ app.post(`/addTwoPartJokes`, async ({ body }: Request, res: Response) => {
       delivery: body.delivery,
       id: body.id,
     });
-    console.log('Joke(two part) added!');
   } catch (error) {
     throw error;
   }
@@ -97,5 +96,5 @@ app.delete(
 );
 
 app.listen(3004, () => {
-  console.log('Application started on port 3004!');
+  console.log("Application started on port 3004!");
 });

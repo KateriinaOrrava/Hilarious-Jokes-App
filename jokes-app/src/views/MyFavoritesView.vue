@@ -109,21 +109,8 @@ export default {
 </template>
 
 <style>
-.toggle-category {
-  cursor: pointer;
-  width: max-content;
-  border-radius: 5px;
-  padding: 2%;
-}
-.jokes-container {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  flex-wrap: wrap;
-  gap: 5px;
-}
-.single-part-joke {
-  background-color: blanchedalmond;
-}
+
+
 @media (min-width: 1024px) {
   .about {
     min-height: 100vh;

@@ -32,6 +32,7 @@ export default {
       categoryTwoPart: 'Any',
       value: '',
       refs: String,
+      value1: true,
     };
   },
   methods: {
@@ -136,10 +137,15 @@ export default {
     </div>
 
     <div class="jokes-container">
-      <div v-for="itemTwoPart in listItemsTwoPart" class="two-part-joke">
+      <div
+        v-for="itemTwoPart in listItemsTwoPart"
+        class="two-part-joke"
+        :class="{ invisible: !value1 }"
+      >
         <button
+          class="add-joke-to-favorites"
           v-on:click="
-            addTwoPartJokeToFavorites(              
+            addTwoPartJokeToFavorites(
               itemTwoPart.category,
               itemTwoPart.setup,
               itemTwoPart.delivery,
@@ -147,7 +153,7 @@ export default {
             )
           "
         >
-          add
+          🤍
         </button>
         <br />
         {{ itemTwoPart.setup }}
@@ -161,11 +167,12 @@ export default {
 </template>
 
 <style>
-.toggle-category {
-  cursor: pointer;
-  width: max-content;
-  border-radius: 5px;
-  padding: 2%;
+.invisible {
+  visibility: hidden;
+}
+.add-joke-to-favorites {
+  background-color: transparent;
+  border: none;
 }
 .jokes-container {
   display: grid;
@@ -173,8 +180,14 @@ export default {
   flex-wrap: wrap;
   gap: 5px;
 }
-.single-part-joke {
-  background-color: blanchedalmond;
+.single-part-joke,
+.two-part-joke {
+  background-color: #e6d6da9a;
+  padding: 20px;
+  font-size: 1rem;
+  color: #311f22;
+  border-radius: 10px;
+  min-width: 20%;
 }
 @media (min-width: 1024px) {
   .about {

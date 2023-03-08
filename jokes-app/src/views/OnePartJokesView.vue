@@ -31,6 +31,7 @@ export default {
       categorySingle: 'Any',
       value: '',
       refs: String,
+      isShowing: true,
     };
   },
   methods: {
@@ -43,9 +44,9 @@ export default {
     },
 
     async getDataByCategorySingle(e: any) {
-      const categorySingle = e.target.value;
+      this.categorySingle = e.target.value;
       const resJokesSingleType = await fetch(
-        `https://v2.jokeapi.dev/joke/${categorySingle}?type=single&amount=10`
+        `https://v2.jokeapi.dev/joke/${this.categorySingle}?type=single&amount=10`
       );
       const singleTypeJokes = await resJokesSingleType.json();
       this.listItems = singleTypeJokes.jokes;
@@ -66,14 +67,6 @@ export default {
         (response) => response.json()
       );
     },
-
-    toggle() {
-      if (!this.isLiked) {
-        this.isLiked = true;
-      } else {
-        this.isLiked = false;
-      }
-    },
   },
   mounted() {
     this.getSingleTypeJokesOnLoad();
@@ -84,22 +77,67 @@ export default {
   <div>
     <h2>CATEGORIES</h2>
     <h3>Type: {{ categorySingle }}</h3>
-    <div>
-      <button value="Any" v-on:click="getDataByCategorySingle($event)">
-        Any
-      </button>
-      <button value="Misc" v-on:click="getDataByCategorySingle($event)">
-        Misc
-      </button>
-      <button value="Programming" v-on:click="getDataByCategorySingle($event)">
-        Programming
-      </button>
-      <button value="Dark" v-on:click="getDataByCategorySingle($event)">
-        Dark
-      </button>
-      <button value="Pun" v-on:click="getDataByCategorySingle($event)">
-        Pun
-      </button>
+    <div class="joke-categories">
+      <div class="joke-categories__wrapper">
+        <button
+          value="Any"
+          v-on:click="getDataByCategorySingle($event)"
+          class="category-button"
+        >
+          Any
+        </button>
+        <div class="drip-1"></div>
+        <div class="drip-2"></div>
+        <div class="drip-3"></div>
+      </div>
+      <div class="joke-categories__wrapper">
+        <button
+          value="Misc"
+          v-on:click="getDataByCategorySingle($event)"
+          class="category-button"
+        >
+          Misc
+        </button>
+        <div class="drip-1"></div>
+        <div class="drip-2"></div>
+        <div class="drip-3"></div>
+      </div>
+      <div class="joke-categories__wrapper">
+        <button
+          value="Programming"
+          v-on:click="getDataByCategorySingle($event)"
+          class="category-button"
+        >
+          Programming
+        </button>
+        <div class="drip-1"></div>
+        <div class="drip-2"></div>
+        <div class="drip-3"></div>
+      </div>
+      <div class="joke-categories__wrapper">
+        <button
+          value="Dark"
+          v-on:click="getDataByCategorySingle($event)"
+          class="category-button"
+        >
+          Dark
+        </button>
+        <div class="drip-1"></div>
+        <div class="drip-2"></div>
+        <div class="drip-3"></div>
+      </div>
+      <div class="joke-categories__wrapper">
+        <button
+          value="Pun"
+          v-on:click="getDataByCategorySingle($event)"
+          class="category-button"
+        >
+          Pun
+        </button>
+        <div class="drip-1"></div>
+        <div class="drip-2"></div>
+        <div class="drip-3"></div>
+      </div>
     </div>
     <div class="jokes-container">
       <div v-for="item in listItems" class="single-part-joke">
@@ -108,7 +146,7 @@ export default {
             addOnePartJokeToFavorites(item.joke, item.category, item.id)
           "
         >
-          ☆
+          <a>☆</a>
         </button>
         <p>{{ item.joke }}</p>
       </div>
@@ -118,26 +156,97 @@ export default {
 </template>
 
 <style>
-.toggle-category {
-  cursor: pointer;
-  width: max-content;
-  border-radius: 5px;
-  padding: 2%;
+.joke-categories {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.active {
+  background-color: red;
 }
 .jokes-container {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 10px;
 }
-.single-part-joke {
-  background-color: blanchedalmond;
-}
+
 @media (min-width: 1024px) {
   .about {
     min-height: 100vh;
     display: flex;
     align-items: center;
   }
+}
+.joke-categories__wrapper {
+  position: relative;
+  padding-bottom: 20px;
+}
+
+.category-button {
+  color: #464444;
+  font-weight: normal;
+  font-size: 18px;
+  background: #b693ef;
+  border-radius: 10px;
+  padding: 5px 50px;
+  border: none;
+  transition: 0.5s ease;
+  box-shadow: 0 15px 60px -5px rgba(0, 0, 0, 0.5);
+}
+
+.category-button:hover {
+  box-shadow: none;
+  cursor: pointer;
+}
+
+.category-button:hover + .drip-1 {
+  height: 50px;
+}
+
+.category-button:hover ~ .drip-2 {
+  height: 90px;
+}
+
+.category-button:hover ~ .drip-3 {
+  height: 30px;
+}
+
+.drip-1 {
+  position: absolute;
+  width: 40px;
+  height: 0px;
+  border-radius: 0 0 21px 21px;
+  background: #efd5e7;
+  margin: 0px 80px;
+  transition: height 0.9s ease;
+}
+
+.drip-2 {
+  position: absolute;
+  width: 24px;
+  height: 0px;
+  border-radius: 0 0 21px 21px;
+  background: #e9c5de;
+  margin: 0px 55px;
+  transition: height 1.5s ease;
+}
+
+.drip-3 {
+  position: absolute;
+  width: 19px;
+  height: 0px;
+  border-radius: 0 0 21px 21px;
+  background: #bab2b79a;
+  margin: 0px 20px;
+  transition: height 0.7s ease;
+}
+.single-part-joke:hover,
+.two-part-joke:hover {
+  background-color: rgb(230, 214, 218);  padding: 20px;
+  font-size: 1rem;
+  color: #311f22;
+  border-radius: 10px;
+  min-width: 20%;
 }
 </style>
