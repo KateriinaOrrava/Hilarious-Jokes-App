@@ -1,26 +1,27 @@
 <script lang="ts">
 import { stringifyExpression } from '@vue/compiler-core';
-
+import { toRefs, defineProps } from 'vue';
 import { ref } from 'vue';
-// const props = defineProps({
-//   item: {
-//     category: String,
-//     type: String,
-//     joke: String,
-//     flags: {
-//       nsfw: Boolean,
-//       religious: Boolean,
-//       political: Boolean,
-//       racist: Boolean,
-//       sexist: Boolean,
-//       explicit: Boolean,
-//     },
-//     id: Number,
-//     safe: Boolean,
-//     lang: String,
-//   },
-//   listItems: [],
-// });
+const props = defineProps({
+  item: {
+    category: String,
+    type: String,
+    setup: String,
+    delivery: String,
+    flags: {
+      nsfw: Boolean,
+      religious: Boolean,
+      political: Boolean,
+      racist: Boolean,
+      sexist: Boolean,
+      explicit: Boolean,
+    },
+    id: Number,
+    safe: Boolean,
+    lang: String,
+  },
+  listItems: [],
+});
 
 export default {
   data() {
@@ -51,17 +52,27 @@ export default {
       this.listItemsTwoPart = twoPartTypeJokes.jokes;
     },
 
-    addJokeToFavorites(jokeId: string) {
-      console.log(jokeId);
-      console.log('clicked');
-    },
-
-    toggle() {
-      if (!this.isLiked) {
-        this.isLiked = true;
-      } else {
-        this.isLiked = false;
-      }
+    addTwoPartJokeToFavorites(
+      category: string,
+      setup: string,
+      delivery: string,
+      id: number
+    ) {
+      let newJoke2 = {
+        category: category,
+        setup: setup,
+        delivery: delivery,
+        id: id,
+      };
+      console.log(newJoke2);
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newJoke2),
+      };
+      fetch('http://localhost:3004/addTwoPartJokes', requestOptions).then(
+        (response) => response.json()
+      );
     },
   },
   mounted() {
@@ -127,16 +138,22 @@ export default {
     <div class="jokes-container">
       <div v-for="itemTwoPart in listItemsTwoPart" class="two-part-joke">
         <button
-          :class="{ active: isLiked }"
-          @click="toggle"
-          v-on:click="addJokeToFavorites(itemTwoPart.id)"
+          v-on:click="
+            addTwoPartJokeToFavorites(              
+              itemTwoPart.category,
+              itemTwoPart.setup,
+              itemTwoPart.delivery,
+              itemTwoPart.id
+            )
+          "
         >
-          {{ isLiked ? '🤍' : '❤️' }}
+          add
         </button>
         <br />
-        {{ itemTwoPart.delivery }}
-        <br />
         {{ itemTwoPart.setup }}
+        <br />
+        {{ itemTwoPart.delivery }}
+
         <br />
       </div>
     </div>

@@ -1,26 +1,26 @@
 <script lang="ts">
 import { stringifyExpression } from '@vue/compiler-core';
-
+import { toRefs, defineProps } from 'vue';
 import { ref } from 'vue';
-// const props = defineProps({
-//   item: {
-//     category: String,
-//     type: String,
-//     joke: String,
-//     flags: {
-//       nsfw: Boolean,
-//       religious: Boolean,
-//       political: Boolean,
-//       racist: Boolean,
-//       sexist: Boolean,
-//       explicit: Boolean,
-//     },
-//     id: Number,
-//     safe: Boolean,
-//     lang: String,
-//   },
-//   listItems: [],
-// });
+const props = defineProps({
+  item: {
+    category: String,
+    type: String,
+    joke: String,
+    flags: {
+      nsfw: Boolean,
+      religious: Boolean,
+      political: Boolean,
+      racist: Boolean,
+      sexist: Boolean,
+      explicit: Boolean,
+    },
+    id: Number,
+    safe: Boolean,
+    lang: String,
+  },
+  listItems: [],
+});
 
 export default {
   data() {
@@ -51,9 +51,20 @@ export default {
       this.listItems = singleTypeJokes.jokes;
     },
 
-    addJokeToFavorites(jokeId: string) {
-      console.log(jokeId);
-      console.log('clicked');
+    addOnePartJokeToFavorites(joke: string, category: string, id: number) {
+      let newJoke = {
+        joke: joke,
+        category: category,
+        id: id,
+      };
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newJoke),
+      };
+      fetch('http://localhost:3004/addOnePartJokes', requestOptions).then(
+        (response) => response.json()
+      );
     },
 
     toggle() {
@@ -92,10 +103,13 @@ export default {
     </div>
     <div class="jokes-container">
       <div v-for="item in listItems" class="single-part-joke">
-        <!-- <button :class="{ active: isLiked }" @click="toggle">
-          {{ isLiked ? '🤍' : '❤️' }}
-        </button> -->
-        <button v-on:click="addJokeToFavorites(item.id)">☆</button>
+        <button
+          v-on:click="
+            addOnePartJokeToFavorites(item.joke, item.category, item.id)
+          "
+        >
+          ☆
+        </button>
         <p>{{ item.joke }}</p>
       </div>
     </div>
