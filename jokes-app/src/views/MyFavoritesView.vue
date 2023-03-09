@@ -41,8 +41,6 @@ export default {
       listItemsOnePart: [] as SinglePartJoke[],
       listItems: [],
       isLiked: false,
-      value: '',
-      refs: String,
     };
   },
 
@@ -52,6 +50,7 @@ export default {
         autoClose: 1000,
       });
     },
+
     async getTwoPartTypeJokesOnLoad() {
       const resJokesTwoPartType = await fetch(
         'http://localhost:3004/twoPartJokes'
@@ -60,6 +59,7 @@ export default {
       console.log(finalRes2);
       this.listItemsTwoPart = finalRes2;
     },
+
     async getOnePartTypeJokesOnLoad() {
       const resJokesOnePartType = await fetch(
         'http://localhost:3004/onePartJokes'
@@ -67,9 +67,8 @@ export default {
       const finalRes1 = await resJokesOnePartType.json();
       this.listItemsOnePart = finalRes1;
     },
-    async deleteOnePartJoke(id: number) {
-      console.log('delete', id);
 
+    async deleteOnePartJoke(id: number) {
       const requestOptions = {
         method: 'DELETE',
         headers: {
@@ -87,6 +86,7 @@ export default {
           ))
       );
     },
+
     async deleteTwoPartJoke(id: number) {
       const requestOptions = {
         method: 'DELETE',
@@ -95,7 +95,6 @@ export default {
           'My-Custom-Header': 'foobar',
         },
       };
-
       fetch(
         `http://localhost:3004/jokeTwoPartToDelete/${id}`,
         requestOptions
