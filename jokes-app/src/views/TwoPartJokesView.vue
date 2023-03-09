@@ -1,4 +1,6 @@
 <script lang="ts">
+import { toast } from 'vue3-toastify';
+
 interface TwoPartJokeType {
   category: string;
   type: string;
@@ -27,11 +29,14 @@ export default {
     };
   },
   methods: {
+    notify() {
+      toast('Added to favorites!', {
+        autoClose: 1000,
+      });
+    },
     toggle_selection_for(id: number) {
       if (this.selected_jokes.includes(id)) {
-        this.selected_jokes = this.selected_jokes.filter(
-          (joke) => joke !== id
-        );
+        this.selected_jokes = this.selected_jokes.filter((joke) => joke !== id);
       } else {
         this.selected_jokes.push(id);
       }
@@ -154,6 +159,9 @@ export default {
         >
           Spooky
         </button>
+        <div class="drip-1"></div>
+        <div class="drip-2"></div>
+        <div class="drip-3"></div>
       </div>
       <div class="joke-categories__wrapper">
         <button
@@ -186,7 +194,8 @@ export default {
                 joke.delivery,
                 joke.id
               );
-              toggle_selection_for(joke.id); 
+              toggle_selection_for(joke.id);
+              notify();
             }
           "
         >
@@ -194,10 +203,8 @@ export default {
         </button>
         <p class="two-part-joke__wrapper--setup">{{ joke.setup }}</p>
 
-        <br />
-        <br />
         <div class="two-part-joke__wrapper--delivery">
-          <br />
+
           <p>{{ joke.delivery }}</p>
           <br />
         </div>
@@ -207,13 +214,11 @@ export default {
 </template>
 
 <style>
-.invisible {
-  visibility: hidden;
-}
 .selected {
   color: white;
   background-color: #685bbf;
   border-radius: 20px;
+  cursor: not-allowed;
 }
 .two-part-joke__wrapper {
   display: flex;

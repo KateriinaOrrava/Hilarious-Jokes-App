@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router';
 import HelloWorld from './components/HelloWorld.vue';
+import Footer from './components/Footer.vue';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
 </script>
 
 <template>
@@ -18,10 +21,10 @@ import HelloWorld from './components/HelloWorld.vue';
   </header>
 
   <RouterView />
+  <Footer></Footer>
 </template>
 
 <style scoped>
-
 .single-part-joke,
 .two-part-joke {
   background-color: #3936374f;

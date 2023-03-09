@@ -1,4 +1,6 @@
 <script lang="ts">
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 interface SinglePartJoke {
   category: string;
   type: string;
@@ -26,11 +28,14 @@ export default {
     };
   },
   methods: {
+    notify(){
+      toast('Added to favorites!', {
+        autoClose: 1000,
+      }); // ToastOptions
+    },
     toggle_selection_for(id: number) {
       if (this.selected_jokes.includes(id)) {
-        this.selected_jokes = this.selected_jokes.filter(
-          (joke) => joke !== id
-        );
+        this.selected_jokes = this.selected_jokes.filter((joke) => joke !== id);
       } else {
         this.selected_jokes.push(id);
       }
@@ -153,6 +158,7 @@ export default {
                 {
                   addOnePartJokeToFavorites(joke.joke, joke.category, joke.id);
                   toggle_selection_for(joke.id);
+                  notify();
                 }
               "
             >
@@ -171,8 +177,8 @@ export default {
 .add-joke-to-favorites {
   font-size: 2em;
 }
-.one-part-joke__wrapper{
-  display:flex;
+.one-part-joke__wrapper {
+  display: flex;
 }
 .jokes-container {
   display: flex;

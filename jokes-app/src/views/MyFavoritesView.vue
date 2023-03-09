@@ -1,4 +1,6 @@
 <script lang="ts">
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 interface SinglePartJoke {
   category: string;
   type: string;
@@ -44,6 +46,11 @@ export default {
     };
   },
   methods: {
+    notify() {
+      toast('Deleted from favorites', {
+        autoClose: 1000,
+      });
+    },
     async getTwoPartTypeJokesOnLoad() {
       const resJokesTwoPartType = await fetch(
         'http://localhost:3004/twoPartJokes'
@@ -107,45 +114,69 @@ export default {
 };
 </script>
 <template>
-  <h3>FAVORITE ONE PART JOKES</h3>
-  <div class="jokes-container">
-    <div v-for="itemOnePart in listItemsOnePart" class="single-part-joke">
-      <button
-        v-on:click="deleteOnePartJoke(itemOnePart.id)"
-        class="single-part-joke__delete-button delete"
-      >
-        ❌
-      </button>
-      <br />
-      {{ itemOnePart.joke }}
-      <br />
+  <div class="allJokesContainer">
+    <div class="allJokesContainer-half">
+      <h3>FAVORITE ONE PART JOKES</h3>
+      <div class="jokes-container">
+        <div v-for="itemOnePart in listItemsOnePart" class="single-part-joke">
+          <button
+            v-on:click="deleteOnePartJoke(itemOnePart.id)"
+            class="single-part-joke__delete-button delete"
+          >
+            ❌
+          </button>
+          <br />
+          {{ itemOnePart.joke }}
+          <br />
+        </div>
+      </div>
     </div>
-  </div>
-  <br />
-  <br /><br />
-  <h3>FAVORITE TWO PART JOKES</h3>
-  <div>
-    <div class="jokes-container jokes-container__two-part">
-      <div v-for="itemTwoPart in listItemsTwoPart" class="two-part-joke">
-        <button
-          v-on:click="deleteTwoPartJoke(itemTwoPart.id)"
-          class="two-part-joke__delete-button delete"
-        >
-          ❌
-        </button>
-        <br />
-        <p>{{ itemTwoPart.setup }}</p>
-        <br />
-        <br />
-        <p>{{ itemTwoPart.delivery }}</p>
+    <div class="allJokesContainer-half">
+      <h3>FAVORITE TWO PART JOKES</h3>
+      <div>
+        <div class="jokes-container jokes-container__two-part">
+          <div v-for="itemTwoPart in listItemsTwoPart" class="two-part-joke">
+            <button
+              v-on:click="
+                {
+                  deleteTwoPartJoke(itemTwoPart.id);
+                  notify();
+                }
+              "
+              class="two-part-joke__delete-button delete"
+            >
+              ❌
+            </button>
+            <br />
+            <p>{{ itemTwoPart.setup }}</p>
+            <br />
+            <br />
+            <p>{{ itemTwoPart.delivery }}</p>
 
-        <br />
+            <br />
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <style>
+.jokes-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.allJokesContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 20px;
+}
+.allJokesContainer-half {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 .delete {
   background-color: transparent;
   border: none;

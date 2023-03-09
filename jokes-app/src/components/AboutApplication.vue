@@ -1,12 +1,10 @@
 <template>
   <div class="item">
     <p class="paragraph-about-application">
-      The application is a joke application that retrieves jokes from
-      https://sv443.net/jokeapi/v2/ using Vue 3 options API, Vue Router,
-      TypeScript, CSS, and HTML. <br /><br />The application is designed to
-      display two types of jokes: one-part jokes and two-part jokes. These two
-      types of jokes are separated into different views, making it easy for
-      users to access the jokes they prefer.<br /><br />
+      <br />The application is designed to display two types of jokes: one-part
+      jokes and two-part jokes. These two types of jokes are separated into
+      different views, making it easy for users to access the jokes they
+      prefer.<br /><br />
       In addition to being able to view jokes by type, users can also choose
       from different categories such as any, programming, dark, pun, spooky, and
       Christmas. This feature allows users to view jokes that fit their
