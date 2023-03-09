@@ -1,46 +1,55 @@
 <script lang="ts">
-import { stringifyExpression } from '@vue/compiler-core';
-import { toRefs, defineProps } from 'vue';
-import { ref } from 'vue';
-const props = defineProps({
-  item: {
-    category: String,
-    type: String,
-    joke: String,
-    flags: {
-      nsfw: Boolean,
-      religious: Boolean,
-      political: Boolean,
-      racist: Boolean,
-      sexist: Boolean,
-      explicit: Boolean,
-    },
-    id: Number,
-    safe: Boolean,
-    lang: String,
-  },
-  listItems: [],
-});
+import type { PropType } from 'vue';
+
+interface SinglePartJoke {
+  category: string;
+  type: string;
+  joke: string;
+  flags: {
+    nsfw: boolean;
+    religious:boolean;
+    political: boolean;
+    racist: boolean;
+    sexist: boolean;
+    explicit: boolean;
+  };
+  id: number;
+  safe: boolean;
+  lang: string;
+}
 
 export default {
   data() {
     return {
-      listItems: [],
-      listItemsTwoPart: [],
+      jokesList: [] as SinglePartJoke[],
       isLiked: false,
       categorySingle: 'Any',
       value: '',
       refs: String,
       isShowing: true,
+      currentIndex: Number,
+      item: {},
+      likedJokeId: 0,
+      selected_options: [],
     };
   },
   methods: {
+    toggle_selection_for(id: number) {
+      if (this.selected_options.includes(id)) {
+        this.selected_options = this.selected_options.filter(
+          (item) => item !== id
+        );
+      } else {
+        this.selected_options.push(option);
+      }
+    },
+
     async getSingleTypeJokesOnLoad() {
       const resJokesSingleType = await fetch(
         'https://v2.jokeapi.dev/joke/Any?type=single&amount=10'
       );
       const finalRes1 = await resJokesSingleType.json();
-      this.listItems = finalRes1.jokes;
+      this.jokesList = finalRes1.jokes;
     },
 
     async getDataByCategorySingle(e: any) {
@@ -49,7 +58,7 @@ export default {
         `https://v2.jokeapi.dev/joke/${this.categorySingle}?type=single&amount=10`
       );
       const singleTypeJokes = await resJokesSingleType.json();
-      this.listItems = singleTypeJokes.jokes;
+      this.jokesList = singleTypeJokes.jokes;
     },
 
     addOnePartJokeToFavorites(joke: string, category: string, id: number) {
@@ -140,16 +149,24 @@ export default {
       </div>
     </div>
     <div class="jokes-container">
-      <div v-for="item in listItems" class="single-part-joke">
-        <button
-        class="add-joke-to-favorites"
-          v-on:click="
-            addOnePartJokeToFavorites(item.joke, item.category, item.id)
-          "
+      <div v-for="joke in jokesList" class="single-part-joke">
+        <div
+          :key="joke.id"
+          :class="{ selected: selected_options.includes(joke.id) }"
         >
-          🤍
-        </button>
-        <p>{{ item.joke }}</p>
+          <button
+            class="add-joke-to-favorites"
+            v-on:click="
+              {
+                addOnePartJokeToFavorites(joke.joke, joke.category, joke.id);
+                toggle_selection_for(joke.id);
+              }
+            "
+          >
+            🤍
+          </button>
+          <p class="single-part-joke__text">{{ joke.joke }}</p>
+        </div>
       </div>
     </div>
     <br />
@@ -162,14 +179,18 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
   gap: 20px;
+  justify-content: center;
 }
 .joke-categories {
   display: flex;
   justify-content: center;
   gap: 20px;
 }
-.active {
-  background-color: red;
+.selected {
+  color: white;
+  background-color: #685bbf;
+  border-radius: 20px;
+  display: none;
 }
 
 @media (min-width: 1024px) {
@@ -185,17 +206,20 @@ export default {
 }
 
 .category-button {
-  color: #464444;
+  /* color: #464444; */
   font-weight: normal;
   font-size: 18px;
   background: #b693ef;
-  border-radius: 10px;
-  padding: 5px 50px;
+  border-radius: 10px 10px 10px 0px;
+  padding: 5px 30px;
   border: none;
   transition: 0.5s ease;
   box-shadow: 0 15px 60px -5px rgba(0, 0, 0, 0.5);
+  font-weight: 700;
 }
-
+.single-part-joke__text {
+  padding: 5px;
+}
 .category-button:hover {
   box-shadow: none;
   cursor: pointer;
@@ -219,7 +243,7 @@ export default {
   height: 0px;
   border-radius: 0 0 21px 21px;
   background: #efd5e7;
-  margin: 0px 80px;
+  margin: 0px 0px;
   transition: height 0.9s ease;
 }
 
@@ -242,15 +266,14 @@ export default {
   margin: 0px 20px;
   transition: height 0.7s ease;
 }
-.single-part-joke{
-display:flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
+.single-part-joke {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-.single-part-joke:hover{
+.single-part-joke:hover {
   background-color: rgb(230, 214, 218);
-  padding: 20px;
   color: #311f22;
   border-radius: 10px;
   min-width: 20%;
