@@ -25,10 +25,11 @@ export default {
       categorySingle: 'Any',
       value: '',
       selected_jokes: [] as number[],
+      categories: ['Any', 'Misc', 'Programming', 'Dark', 'Pun'],
     };
   },
   methods: {
-    notify(){
+    notify() {
       toast('Added to favorites!', {
         autoClose: 1000,
       }); // ToastOptions
@@ -83,68 +84,24 @@ export default {
   <div>
     <h2>CATEGORIES</h2>
     <h3>Type: {{ categorySingle }}</h3>
-    <div class="joke-categories">
-      <div class="joke-categories__wrapper">
-        <button
-          value="Any"
-          v-on:click="getDataByCategorySingle($event)"
-          class="category-button"
-        >
-          Any
-        </button>
-        <div class="drip-1"></div>
-        <div class="drip-2"></div>
-        <div class="drip-3"></div>
+
+      <div class="joke-categories">
+        <div v-for="category in categories" class="joke-categories__wrapper">
+          <button
+
+            :value=category
+            v-on:click="getDataByCategorySingle($event)"
+            class="category-button"
+          >
+            {{ category }}
+          </button>
+          <div class="drip-1"></div>
+          <div class="drip-2"></div>
+          <div class="drip-3"></div>
+        </div>
       </div>
-      <div class="joke-categories__wrapper">
-        <button
-          value="Misc"
-          v-on:click="getDataByCategorySingle($event)"
-          class="category-button"
-        >
-          Misc
-        </button>
-        <div class="drip-1"></div>
-        <div class="drip-2"></div>
-        <div class="drip-3"></div>
-      </div>
-      <div class="joke-categories__wrapper">
-        <button
-          value="Programming"
-          v-on:click="getDataByCategorySingle($event)"
-          class="category-button"
-        >
-          Programming
-        </button>
-        <div class="drip-1"></div>
-        <div class="drip-2"></div>
-        <div class="drip-3"></div>
-      </div>
-      <div class="joke-categories__wrapper">
-        <button
-          value="Dark"
-          v-on:click="getDataByCategorySingle($event)"
-          class="category-button"
-        >
-          Dark
-        </button>
-        <div class="drip-1"></div>
-        <div class="drip-2"></div>
-        <div class="drip-3"></div>
-      </div>
-      <div class="joke-categories__wrapper">
-        <button
-          value="Pun"
-          v-on:click="getDataByCategorySingle($event)"
-          class="category-button"
-        >
-          Pun
-        </button>
-        <div class="drip-1"></div>
-        <div class="drip-2"></div>
-        <div class="drip-3"></div>
-      </div>
-    </div>
+
+
     <div class="jokes-container">
       <div v-for="joke in jokesList" class="single-part-joke">
         <div
@@ -179,6 +136,7 @@ export default {
 }
 
 .one-part-joke__wrapper {
+  padding: 5px 5px;
   display: flex;
 }
 .jokes-container {
@@ -193,7 +151,7 @@ export default {
   display: flex;
   justify-content: center;
   gap: 20px;
-  flex-wrap: wrap
+  flex-wrap: wrap;
 }
 .selected {
   color: white;
@@ -282,6 +240,7 @@ export default {
   justify-content: center;
   align-items: center;
   border-radius: 20px;
+  padding: 10px 10px;
 }
 .single-part-joke:hover {
   background-color: rgb(230, 214, 218);

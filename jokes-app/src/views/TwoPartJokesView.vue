@@ -26,6 +26,15 @@ export default {
       categoryTwoPart: 'Any',
       value: '',
       selected_jokes: [] as number[],
+      categories: [
+        'Any',
+        'Misc',
+        'Programming',
+        'Dark',
+        'Pun',
+        'Spooky',
+        'Christmas',
+      ],
     };
   },
   methods: {
@@ -90,86 +99,13 @@ export default {
   <div>
     <h3>CATEGORY: {{ categoryTwoPart }}</h3>
     <div class="joke-categories">
-      <div class="joke-categories__wrapper">
+      <div v-for="category in categories" class="joke-categories__wrapper">
         <button
-          value="Any"
+          :value="category"
           v-on:click="getDataByCategoryTwoPart($event)"
           class="category-button"
         >
-          Any
-        </button>
-        <div class="drip-1"></div>
-        <div class="drip-2"></div>
-        <div class="drip-3"></div>
-      </div>
-      <div class="joke-categories__wrapper">
-        <button
-          value="Misc"
-          v-on:click="getDataByCategoryTwoPart($event)"
-          class="category-button"
-        >
-          Misc
-        </button>
-        <div class="drip-1"></div>
-        <div class="drip-2"></div>
-        <div class="drip-3"></div>
-      </div>
-      <div class="joke-categories__wrapper">
-        <button
-          value="Programming"
-          v-on:click="getDataByCategoryTwoPart($event)"
-          class="category-button"
-        >
-          Programming
-        </button>
-        <div class="drip-1"></div>
-        <div class="drip-2"></div>
-        <div class="drip-3"></div>
-      </div>
-      <div class="joke-categories__wrapper">
-        <button
-          value="Dark"
-          v-on:click="getDataByCategoryTwoPart($event)"
-          class="category-button"
-        >
-          Dark
-        </button>
-        <div class="drip-1"></div>
-        <div class="drip-2"></div>
-        <div class="drip-3"></div>
-      </div>
-
-      <div class="joke-categories__wrapper">
-        <button
-          value="Pun"
-          v-on:click="getDataByCategoryTwoPart($event)"
-          class="category-button"
-        >
-          Pun
-        </button>
-        <div class="drip-1"></div>
-        <div class="drip-2"></div>
-        <div class="drip-3"></div>
-      </div>
-      <div>
-        <button
-          value="Spooky"
-          v-on:click="getDataByCategoryTwoPart($event)"
-          class="category-button"
-        >
-          Spooky
-        </button>
-        <div class="drip-1"></div>
-        <div class="drip-2"></div>
-        <div class="drip-3"></div>
-      </div>
-      <div class="joke-categories__wrapper">
-        <button
-          value="Christmas"
-          v-on:click="getDataByCategoryTwoPart($event)"
-          class="category-button"
-        >
-          Christmas
+          {{ category }}
         </button>
         <div class="drip-1"></div>
         <div class="drip-2"></div>
@@ -204,7 +140,6 @@ export default {
         <p class="two-part-joke__wrapper--setup">{{ joke.setup }}</p>
 
         <div class="two-part-joke__wrapper--delivery">
-
           <p>{{ joke.delivery }}</p>
         </div>
       </div>
@@ -258,7 +193,9 @@ export default {
   align-items: center;
   justify-items: center;
 }
-
+.two-part-joke:hover {
+  background-color: #8f888ae9;
+}
 @media (min-width: 1024px) {
   .about {
     min-height: 100vh;

@@ -35,6 +35,7 @@ interface TwoPartJokeType {
   lang: string;
 }
 export default {
+
   data() {
     return {
       listItemsTwoPart: [] as TwoPartJokeType[],
@@ -45,6 +46,7 @@ export default {
       refs: String,
     };
   },
+
   methods: {
     notify() {
       toast('Deleted from favorites', {
@@ -87,8 +89,6 @@ export default {
       );
     },
     async deleteTwoPartJoke(id: number) {
-      console.log('delete', id);
-
       const requestOptions = {
         method: 'DELETE',
         headers: {
@@ -96,6 +96,7 @@ export default {
           'My-Custom-Header': 'foobar',
         },
       };
+
       fetch(
         `http://localhost:3004/jokeTwoPartToDelete/${id}`,
         requestOptions
@@ -107,14 +108,19 @@ export default {
       );
     },
   },
+
   mounted() {
     this.getTwoPartTypeJokesOnLoad();
     this.getOnePartTypeJokesOnLoad();
   },
 };
+
 </script>
+
 <template>
+
   <div class="allJokesContainer">
+
     <div class="allJokesContainer-half">
       <h3>FAVORITE ONE PART JOKES</h3>
       <div class="jokes-container">
@@ -126,11 +132,13 @@ export default {
           ✕
           </button>
           <br />
-          {{ itemOnePart.joke }}
+          <p>{{ itemOnePart.joke }}</p>
+          
           <br />
         </div>
       </div>
     </div>
+
     <div class="allJokesContainer-half">
       <h3>FAVORITE TWO PART JOKES</h3>
       <div>
@@ -157,6 +165,7 @@ export default {
       </div>
     </div>
   </div>
+
 </template>
 
 <style>
@@ -164,6 +173,7 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  padding:10px 10px;
 }
 .allJokesContainer {
   display: grid;
