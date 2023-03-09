@@ -1,5 +1,4 @@
 <script lang="ts">
-
 interface TwoPartJokeType {
   category: string;
   type: string;
@@ -22,23 +21,19 @@ export default {
   data() {
     return {
       listItemsTwoPart: [] as TwoPartJokeType[],
-      isLiked: false,
       categoryTwoPart: 'Any',
       value: '',
-      refs: String,
-      value1: true,
-      selected_options: [] as TwoPartJokeType["id"][],
-
+      selected_jokes: [] as number[],
     };
   },
   methods: {
-    toggle_selection_for(option:number) {
-      if (this.selected_options.includes(option)) {
-        this.selected_options = this.selected_options.filter(
-          (item) => item !== option
+    toggle_selection_for(id: number) {
+      if (this.selected_jokes.includes(id)) {
+        this.selected_jokes = this.selected_jokes.filter(
+          (joke) => joke !== id
         );
       } else {
-        this.selected_options.push(option);
+        this.selected_jokes.push(id);
       }
     },
     async getTwoPartTypeJokesOnLoad() {
@@ -178,7 +173,8 @@ export default {
     <div v-for="joke in listItemsTwoPart" class="two-part-joke">
       <div
         :key="joke.id"
-        :class="{ selected: selected_options.includes(joke.id) }"
+        :class="{ selected: selected_jokes.includes(joke.id) }"
+        class="two-part-joke__wrapper"
       >
         <button
           class="add-joke-to-favorites"
@@ -190,19 +186,21 @@ export default {
                 joke.delivery,
                 joke.id
               );
-              toggle_selection_for(joke.id);
+              toggle_selection_for(joke.id); 
             }
           "
         >
           🤍
         </button>
-        <br />
-        {{ joke.setup }}
-        <br />
-        <br />
-        {{ joke.delivery }}
+        <p class="two-part-joke__wrapper--setup">{{ joke.setup }}</p>
 
         <br />
+        <br />
+        <div class="two-part-joke__wrapper--delivery">
+          <br />
+          <p>{{ joke.delivery }}</p>
+          <br />
+        </div>
       </div>
     </div>
   </div>
@@ -216,13 +214,32 @@ export default {
   color: white;
   background-color: #685bbf;
   border-radius: 20px;
-  display: none;
+}
+.two-part-joke__wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.jokes-container__two-part {
+  display: flex;
 }
 .add-joke-to-favorites {
   background-color: transparent;
   border: none;
 }
-
+.two-part-joke__wrapper--setup {
+  font-style: italic;
+  font-weight: 600;
+}
+.two-part-joke__wrapper--delivery {
+  color: black;
+  transform: rotate(180deg);
+}
+.two-part-joke__wrapper--delivery:hover {
+  transform: rotate(0deg);
+  transition: transform 0.6s ease;
+}
 .single-part-joke,
 .two-part-joke {
   background-color: #8f888a9a;
@@ -232,6 +249,7 @@ export default {
   border-radius: 10px;
   min-width: 10%;
 }
+
 @media (min-width: 1024px) {
   .about {
     min-height: 100vh;

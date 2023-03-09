@@ -1,13 +1,11 @@
 <script lang="ts">
-import type { PropType } from 'vue';
-
 interface SinglePartJoke {
   category: string;
   type: string;
   joke: string;
   flags: {
     nsfw: boolean;
-    religious:boolean;
+    religious: boolean;
     political: boolean;
     racist: boolean;
     sexist: boolean;
@@ -22,25 +20,19 @@ export default {
   data() {
     return {
       jokesList: [] as SinglePartJoke[],
-      isLiked: false,
       categorySingle: 'Any',
       value: '',
-      refs: String,
-      isShowing: true,
-      currentIndex: Number,
-      item: {},
-      likedJokeId: 0,
-      selected_options: [],
+      selected_jokes: [] as number[],
     };
   },
   methods: {
     toggle_selection_for(id: number) {
-      if (this.selected_options.includes(id)) {
-        this.selected_options = this.selected_options.filter(
-          (item) => item !== id
+      if (this.selected_jokes.includes(id)) {
+        this.selected_jokes = this.selected_jokes.filter(
+          (joke) => joke !== id
         );
       } else {
-        this.selected_options.push(option);
+        this.selected_jokes.push(id);
       }
     },
 
@@ -152,20 +144,22 @@ export default {
       <div v-for="joke in jokesList" class="single-part-joke">
         <div
           :key="joke.id"
-          :class="{ selected: selected_options.includes(joke.id) }"
+          :class="{ selected: selected_jokes.includes(joke.id) }"
         >
-          <button
-            class="add-joke-to-favorites"
-            v-on:click="
-              {
-                addOnePartJokeToFavorites(joke.joke, joke.category, joke.id);
-                toggle_selection_for(joke.id);
-              }
-            "
-          >
-            🤍
-          </button>
-          <p class="single-part-joke__text">{{ joke.joke }}</p>
+          <div class="one-part-joke__wrapper">
+            <button
+              class="add-joke-to-favorites"
+              v-on:click="
+                {
+                  addOnePartJokeToFavorites(joke.joke, joke.category, joke.id);
+                  toggle_selection_for(joke.id);
+                }
+              "
+            >
+              🤍
+            </button>
+            <p class="single-part-joke__text">{{ joke.joke }}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -174,6 +168,12 @@ export default {
 </template>
 
 <style>
+.add-joke-to-favorites {
+  font-size: 2em;
+}
+.one-part-joke__wrapper{
+  display:flex;
+}
 .jokes-container {
   display: flex;
   flex-direction: row;
@@ -181,6 +181,7 @@ export default {
   gap: 20px;
   justify-content: center;
 }
+
 .joke-categories {
   display: flex;
   justify-content: center;
@@ -190,7 +191,7 @@ export default {
   color: white;
   background-color: #685bbf;
   border-radius: 20px;
-  display: none;
+  pointer-events: none;
 }
 
 @media (min-width: 1024px) {

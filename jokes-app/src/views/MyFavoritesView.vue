@@ -89,12 +89,15 @@ export default {
           'My-Custom-Header': 'foobar',
         },
       };
-      fetch(`http://localhost:3004/jokeTwoPartToDelete/${id}`, requestOptions).then(
+      fetch(
+        `http://localhost:3004/jokeTwoPartToDelete/${id}`,
+        requestOptions
+      ).then(
         () =>
           (this.listItemsTwoPart = this.listItemsTwoPart.filter(
             (joke) => joke.id !== id
           ))
-      );;
+      );
     },
   },
   mounted() {
@@ -122,7 +125,7 @@ export default {
   <br /><br />
   <h3>FAVORITE TWO PART JOKES</h3>
   <div>
-    <div class="jokes-container">
+    <div class="jokes-container jokes-container__two-part">
       <div v-for="itemTwoPart in listItemsTwoPart" class="two-part-joke">
         <button
           v-on:click="deleteTwoPartJoke(itemTwoPart.id)"
@@ -131,9 +134,11 @@ export default {
           ❌
         </button>
         <br />
-        {{ itemTwoPart.delivery }}
+        <p>{{ itemTwoPart.setup }}</p>
         <br />
-        {{ itemTwoPart.setup }}
+        <br />
+        <p>{{ itemTwoPart.delivery }}</p>
+
         <br />
       </div>
     </div>
