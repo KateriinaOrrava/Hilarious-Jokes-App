@@ -206,7 +206,6 @@ export default {
         <div class="two-part-joke__wrapper--delivery">
 
           <p>{{ joke.delivery }}</p>
-          <br />
         </div>
       </div>
     </div>
@@ -245,7 +244,7 @@ export default {
   transform: rotate(0deg);
   transition: transform 0.6s ease;
 }
-.single-part-joke,
+
 .two-part-joke {
   background-color: #8f888a9a;
   padding: 10px;
@@ -253,6 +252,11 @@ export default {
   color: #311f22;
   border-radius: 10px;
   min-width: 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  justify-items: center;
 }
 
 @media (min-width: 1024px) {

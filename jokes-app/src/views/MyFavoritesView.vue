@@ -123,7 +123,7 @@ export default {
             v-on:click="deleteOnePartJoke(itemOnePart.id)"
             class="single-part-joke__delete-button delete"
           >
-            ❌
+          ✕
           </button>
           <br />
           {{ itemOnePart.joke }}
@@ -145,15 +145,13 @@ export default {
               "
               class="two-part-joke__delete-button delete"
             >
-              ❌
+              ✕
             </button>
-            <br />
             <p>{{ itemTwoPart.setup }}</p>
             <br />
-            <br />
+
             <p>{{ itemTwoPart.delivery }}</p>
 
-            <br />
           </div>
         </div>
       </div>
@@ -181,6 +179,10 @@ export default {
   background-color: transparent;
   border: none;
   cursor: pointer;
+}
+.delete:hover {
+background-color: aliceblue;
+border-radius: 50%;
 }
 @media (min-width: 1024px) {
   .about {

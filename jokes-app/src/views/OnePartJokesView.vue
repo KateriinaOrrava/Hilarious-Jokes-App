@@ -177,6 +177,7 @@ export default {
 .add-joke-to-favorites {
   font-size: 2em;
 }
+
 .one-part-joke__wrapper {
   display: flex;
 }
@@ -192,6 +193,7 @@ export default {
   display: flex;
   justify-content: center;
   gap: 20px;
+  flex-wrap: wrap
 }
 .selected {
   color: white;
@@ -274,10 +276,12 @@ export default {
   transition: height 0.7s ease;
 }
 .single-part-joke {
+  background-color: rgba(205, 195, 198, 0.711);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border-radius: 20px;
 }
 .single-part-joke:hover {
   background-color: rgb(230, 214, 218);
