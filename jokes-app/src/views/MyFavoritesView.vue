@@ -35,7 +35,6 @@ interface TwoPartJokeType {
   lang: string;
 }
 export default {
-
   data() {
     return {
       listItemsTwoPart: [] as TwoPartJokeType[],
@@ -114,13 +113,10 @@ export default {
     this.getOnePartTypeJokesOnLoad();
   },
 };
-
 </script>
 
 <template>
-
   <div class="allJokesContainer">
-
     <div class="allJokesContainer-half">
       <h3>FAVORITE ONE PART JOKES</h3>
       <div class="jokes-container">
@@ -129,11 +125,11 @@ export default {
             v-on:click="deleteOnePartJoke(itemOnePart.id)"
             class="single-part-joke__delete-button delete"
           >
-          ✕
+            ✕
           </button>
           <br />
-          <p>{{ itemOnePart.joke }}</p>
-          
+          <p class="single-part-joke__text">{{ itemOnePart.joke }}</p>
+
           <br />
         </div>
       </div>
@@ -155,17 +151,16 @@ export default {
             >
               ✕
             </button>
-            <p>{{ itemTwoPart.setup }}</p>
+            <p class="two-part-joke__wrapper--setup">{{ itemTwoPart.setup }}</p>
             <br />
-
-            <p>{{ itemTwoPart.delivery }}</p>
-
+            <p class="two-part-joke__wrapper--delivery">
+              {{ itemTwoPart.delivery }}
+            </p>
           </div>
         </div>
       </div>
     </div>
   </div>
-
 </template>
 
 <style>
@@ -173,7 +168,7 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding:10px 10px;
+  padding: 10px 10px;
 }
 .allJokesContainer {
   display: grid;
@@ -191,9 +186,9 @@ export default {
   cursor: pointer;
 }
 .delete:hover {
-background-color: aliceblue;
-border-radius: 50%;
+  background-color: aliceblue;
 }
+
 @media (min-width: 1024px) {
   .about {
     min-height: 100vh;

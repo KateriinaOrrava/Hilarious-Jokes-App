@@ -73,17 +73,16 @@ export default {
       delivery: string,
       id: number
     ) {
-      let newJoke2 = {
+      let newJokeTwoPart = {
         category: category,
         setup: setup,
         delivery: delivery,
         id: id,
       };
-      console.log(newJoke2);
       const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newJoke2),
+        body: JSON.stringify(newJokeTwoPart),
       };
       fetch('http://localhost:3004/addTwoPartJokes', requestOptions).then(
         (response) => response.json()
@@ -138,7 +137,6 @@ export default {
           🤍
         </button>
         <p class="two-part-joke__wrapper--setup">{{ joke.setup }}</p>
-
         <div class="two-part-joke__wrapper--delivery">
           <p>{{ joke.delivery }}</p>
         </div>
@@ -168,21 +166,24 @@ export default {
   border: none;
 }
 .two-part-joke__wrapper--setup {
+  padding: 10px 10px;
   font-style: italic;
   font-weight: 600;
 }
 .two-part-joke__wrapper--delivery {
+  padding: 10px 10px;
   color: black;
-  transform: rotate(180deg);
+  transform: rotate(540deg);
 }
 .two-part-joke__wrapper--delivery:hover {
   transform: rotate(0deg);
   transition: transform 0.6s ease;
+  transition-delay: 0.2s;
+  cursor: pointer;
 }
 
 .two-part-joke {
-  background-color: #8f888a9a;
-  padding: 10px;
+  background-color: #bab4b59a;
   font-size: 1rem;
   color: #311f22;
   border-radius: 10px;
@@ -192,9 +193,15 @@ export default {
   justify-content: space-between;
   align-items: center;
   justify-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  align-items: stretch;
 }
 .two-part-joke:hover {
-  background-color: #8f888ae9;
+  background-color: #8f888a6d;
 }
 @media (min-width: 1024px) {
   .about {

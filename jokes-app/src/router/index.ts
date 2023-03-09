@@ -1,8 +1,8 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import OnePartJokesView  from '../views/OnePartJokesView.vue'
-import TwoPartJokesView  from '../views/TwoPartJokesView.vue'
-import MyFavoritesView from '../views/MyFavoritesView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '../views/HomeView.vue';
+import OnePartJokesView from '../views/OnePartJokesView.vue';
+import TwoPartJokesView from '../views/TwoPartJokesView.vue';
+import MyFavoritesView from '../views/MyFavoritesView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,24 +10,24 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: HomeView,
     },
     {
       path: '/onepartjokes',
       name: 'onepartjokes',
-      component: OnePartJokesView
+      component: OnePartJokesView,
     },
     {
       path: '/twopartjokes',
       name: 'twopartjokes',
-      component: TwoPartJokesView
+      component: TwoPartJokesView,
     },
     {
       path: '/favorites',
       name: 'favorites',
-      component: MyFavoritesView
+      component: MyFavoritesView,
     },
-  ]
-})
+  ],
+});
 
-export default router
+export default router;

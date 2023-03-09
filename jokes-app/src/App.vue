@@ -10,7 +10,6 @@ import 'bootstrap-vue/dist/bootstrap-vue.css';
   <header>
     <div class="wrapper">
       <HelloWorld msg="Hilarious Jokes" />
-
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/onePartJokes">One part jokes</RouterLink>
@@ -37,7 +36,9 @@ import 'bootstrap-vue/dist/bootstrap-vue.css';
   justify-content: center;
   align-items: center;
 }
-
+.wrapper{
+  widows: 100%;
+}
 header {
   line-height: 1.5;
   max-height: 100vh;
@@ -45,7 +46,7 @@ header {
 }
 
 nav {
-  width: 100%;
+  min-width: 100%;
   font-size: 12px;
   text-align: center;
   margin-top: 2rem;

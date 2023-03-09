@@ -2,7 +2,7 @@
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 interface SinglePartJoke {
-  category: string;
+  category: 'Any' | 'Misc' | 'Programming' | 'Dark' | 'Pun';
   type: string;
   joke: string;
   flags: {
@@ -60,7 +60,7 @@ export default {
     },
 
     addOnePartJokeToFavorites(joke: string, category: string, id: number) {
-      let newJoke = {
+      let newJokeOnePart = {
         joke: joke,
         category: category,
         id: id,
@@ -68,7 +68,7 @@ export default {
       const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newJoke),
+        body: JSON.stringify(newJokeOnePart),
       };
       fetch('http://localhost:3004/addOnePartJokes', requestOptions).then(
         (response) => response.json()
@@ -85,22 +85,20 @@ export default {
     <h2>CATEGORIES</h2>
     <h3>Type: {{ categorySingle }}</h3>
 
-      <div class="joke-categories">
-        <div v-for="category in categories" class="joke-categories__wrapper">
-          <button
-
-            :value=category
-            v-on:click="getDataByCategorySingle($event)"
-            class="category-button"
-          >
-            {{ category }}
-          </button>
-          <div class="drip-1"></div>
-          <div class="drip-2"></div>
-          <div class="drip-3"></div>
-        </div>
+    <div class="joke-categories">
+      <div v-for="category in categories" class="joke-categories__wrapper">
+        <button
+          :value="category"
+          v-on:click="getDataByCategorySingle($event)"
+          class="category-button"
+        >
+          {{ category }}
+        </button>
+        <div class="drip-1"></div>
+        <div class="drip-2"></div>
+        <div class="drip-3"></div>
       </div>
-
+    </div>
 
     <div class="jokes-container">
       <div v-for="joke in jokesList" class="single-part-joke">
@@ -126,7 +124,7 @@ export default {
         </div>
       </div>
     </div>
-    <br />
+
   </div>
 </template>
 
@@ -240,12 +238,11 @@ export default {
   justify-content: center;
   align-items: center;
   border-radius: 20px;
-  padding: 10px 10px;
+  align-items: stretch;
 }
 .single-part-joke:hover {
   background-color: rgb(230, 214, 218);
   color: #311f22;
-  border-radius: 10px;
   min-width: 20%;
 }
 </style>

@@ -74,7 +74,6 @@ app.post(`/addTwoPartJokes`, async ({ body }: Request, res: Response) => {
 app.delete(
   `/jokeOnePartToDelete/:id`,
   async ({ params }: Request, res: Response) => {
-    console.log(params.id);
     try {
       await JokeOnePart.deleteOne({ id: params.id });
     } catch (error) {
