@@ -38,11 +38,12 @@ export default {
     };
   },
   methods: {
-    notify() {
+    toastThatJokeIsNowStoredInFavorites() {
       toast('Added to favorites!', {
         autoClose: 1000,
       });
     },
+
     toggle_selection_for(id: number) {
       if (this.selected_jokes.includes(id)) {
         this.selected_jokes = this.selected_jokes.filter((joke) => joke !== id);
@@ -50,21 +51,27 @@ export default {
         this.selected_jokes.push(id);
       }
     },
+
     async getTwoPartTypeJokesOnLoad() {
-      const resJokesTwoPartType = await fetch(
+      const finalRes2 = await fetch(
         'https://v2.jokeapi.dev/joke/Any?type=twopart&amount=10'
-      );
-      const finalRes2 = await resJokesTwoPartType.json();
+      ).then((res) => {
+        return res.json();
+      });
       this.listItemsTwoPart = finalRes2.jokes;
     },
 
-    async getDataByCategoryTwoPart(e: any) {
+    async getDataByCategoryTwoPart(e: {
+      target: any;
+      preventDefault: () => void;
+    }) {
       this.categoryTwoPart = e.target.value;
-      const resJokesTwoPartType = await fetch(
+      const finalRes1 = await fetch(
         `https://v2.jokeapi.dev/joke/${this.categoryTwoPart}?type=twopart&amount=10`
-      );
-      const twoPartTypeJokes = await resJokesTwoPartType.json();
-      this.listItemsTwoPart = twoPartTypeJokes.jokes;
+      ).then((res) => {
+        return res.json();
+      });
+      this.listItemsTwoPart = finalRes1.jokes;
     },
 
     addTwoPartJokeToFavorites(
@@ -130,7 +137,7 @@ export default {
                 joke.id
               );
               toggle_selection_for(joke.id);
-              notify();
+              toastThatJokeIsNowStoredInFavorites();
             }
           "
         >

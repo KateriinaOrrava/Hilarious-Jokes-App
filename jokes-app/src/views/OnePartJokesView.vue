@@ -44,10 +44,9 @@ export default {
     },
 
     async getSingleTypeJokesOnLoad() {
-      const resJokesSingleType = await fetch(
-        'https://v2.jokeapi.dev/joke/Any?type=single&amount=10'
-      );
-      const finalRes1 = await resJokesSingleType.json();
+      const finalRes1 = await fetch(
+        'https://v2.jokeapi.dev/joke/Any?type=single&amount=10').then((res)=>res.json())
+      ;
       this.jokesList = finalRes1.jokes;
     },
 

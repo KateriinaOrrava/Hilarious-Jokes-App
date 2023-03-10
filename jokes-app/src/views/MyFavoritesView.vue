@@ -45,7 +45,7 @@ export default {
   },
 
   methods: {
-    notify() {
+    toastThatJokeWasDeleted() {
       toast('Deleted from favorites', {
         autoClose: 1000,
       });
@@ -56,7 +56,6 @@ export default {
         'http://localhost:3004/twoPartJokes'
       );
       const finalRes2 = await resJokesTwoPartType.json();
-      console.log(finalRes2);
       this.listItemsTwoPart = finalRes2;
     },
 
@@ -105,6 +104,14 @@ export default {
           ))
       );
     },
+
+    handleDeleteJokeOnePart(id: number) {
+      this.deleteOnePartJoke(id);
+    },
+    handleDeleteJokeTwoPart(id: number) {
+      this.deleteTwoPartJoke(id);
+      this.toastThatJokeWasDeleted();
+    },
   },
 
   mounted() {
@@ -121,7 +128,7 @@ export default {
       <div class="jokes-container">
         <div v-for="itemOnePart in listItemsOnePart" class="single-part-joke">
           <button
-            v-on:click="deleteOnePartJoke(itemOnePart.id)"
+            @click="handleDeleteJokeOnePart(itemOnePart.id)"
             class="single-part-joke__delete-button delete"
           >
             ✕
@@ -137,12 +144,7 @@ export default {
         <div class="jokes-container jokes-container__two-part">
           <div v-for="itemTwoPart in listItemsTwoPart" class="two-part-joke">
             <button
-              v-on:click="
-                {
-                  deleteTwoPartJoke(itemTwoPart.id);
-                  notify();
-                }
-              "
+              @click="handleDeleteJokeTwoPart(itemTwoPart.id)"
               class="two-part-joke__delete-button delete"
             >
               ✕
