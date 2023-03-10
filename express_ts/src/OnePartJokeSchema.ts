@@ -1,6 +1,8 @@
 /* eslint-disable prettier/prettier */
 import mongoose from 'mongoose';
+
 const { Schema } = mongoose;
+
 const jokeOnePartSchema = new Schema({
   category: String,
   joke: String,

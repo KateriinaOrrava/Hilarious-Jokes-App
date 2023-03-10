@@ -101,7 +101,7 @@ export default {
       <div v-for="category in categories" class="joke-categories__wrapper">
         <button
           :value="category"
-          v-on:click="getDataByCategoryTwoPart($event)"
+          @click="getDataByCategoryTwoPart($event)"
           class="category-button"
         >
           {{ category }}
@@ -121,7 +121,7 @@ export default {
       >
         <button
           class="add-joke-to-favorites"
-          v-on:click="
+          @click="
             {
               addTwoPartJokeToFavorites(
                 joke.category,

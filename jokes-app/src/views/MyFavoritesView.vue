@@ -126,10 +126,7 @@ export default {
           >
             ✕
           </button>
-          <br />
           <p class="single-part-joke__text">{{ itemOnePart.joke }}</p>
-
-          <br />
         </div>
       </div>
     </div>

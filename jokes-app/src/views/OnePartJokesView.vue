@@ -32,8 +32,9 @@ export default {
     notify() {
       toast('Added to favorites!', {
         autoClose: 1000,
-      }); // ToastOptions
+      });
     },
+
     toggle_selection_for(id: number) {
       if (this.selected_jokes.includes(id)) {
         this.selected_jokes = this.selected_jokes.filter((joke) => joke !== id);
@@ -89,7 +90,7 @@ export default {
       <div v-for="category in categories" class="joke-categories__wrapper">
         <button
           :value="category"
-          v-on:click="getDataByCategorySingle($event)"
+          @click="getDataByCategorySingle($event)"
           class="category-button"
         >
           {{ category }}
@@ -109,7 +110,7 @@ export default {
           <div class="one-part-joke__wrapper">
             <button
               class="add-joke-to-favorites"
-              v-on:click="
+              @click="
                 {
                   addOnePartJokeToFavorites(joke.joke, joke.category, joke.id);
                   toggle_selection_for(joke.id);
@@ -124,7 +125,6 @@ export default {
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
